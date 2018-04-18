@@ -1,0 +1,45 @@
+body {
+	width: 850px;
+	margin: auto;
+}
+p {
+	text-align: center;
+	color: chartreuse;
+	font-size: xx-large;
+}
+#wall {
+	width: 800px;
+	height: 600px;
+	margin: auto;
+	position: relative;
+	border: 2px black solid;
+	overflow: hidden;
+}
+#header {
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	background: red;
+	z-index: 10000;
+}
+#flow {
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	background: yellow;
+	z-index: 9999;
+}
+.flow {
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	background: yellow;
+	z-index: 9998;
+}
+.food {
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	background: green;
+	z-index: 9997;
+}
