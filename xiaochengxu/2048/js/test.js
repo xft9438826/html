@@ -13,15 +13,35 @@ var aY1=null;
 var aY2=null;
 var aY3=null;
 var aY4=null;
+var oBtn=null;
 window.onload=function () {
 	aSmall=document.getElementsByClassName('small');
 	oBodd=document.getElementById('bodd');
 	oScore=document.getElementById('score');
+	oBtn=document.getElementById('btn');
 	
-	//开启设置数字样式和得分的定时器
-	setInterval(function () {
-		font();
-	},300);
+	//点击事件
+	aSmall[1].onclick=aSmall[2].onclick=function () {
+		moveTop();
+	}
+	aSmall[4].onclick=aSmall[8].onclick=function () {
+		moveLeft();
+	}
+	aSmall[7].onclick=aSmall[11].onclick=function () {
+		moveRight();
+	}
+	aSmall[13].onclick=aSmall[14].onclick=function () {
+		moveBottom();
+	}
+	
+	//重新开始
+	oBtn.onclick=function () {
+		for (var i=0; i<aSmall.length; i++) {
+			aSmall[i].innerHTML=null;
+		}
+		create();
+		create();
+	}
 	
 	//加载页面时生成两个数字
 	create();
@@ -31,49 +51,13 @@ window.onload=function () {
 document.onkeydown=function () {
 	if (event.keyCode == 87) {
 		//获取对应方向的所有数字，并移动
-		aX1=oBodd.getElementsByClassName('x1');
-		move1(aX1);
-		aX2=oBodd.getElementsByClassName('x2');
-		move1(aX2);
-		aX3=oBodd.getElementsByClassName('x3');
-		move1(aX3);
-		aX4=oBodd.getElementsByClassName('x4');
-		move1(aX4);
-		
-		create();
+		moveTop();
 	} else if (event.keyCode == 83) {
-		aX1=oBodd.getElementsByClassName('x1');
-		move2(aX1);
-		aX2=oBodd.getElementsByClassName('x2');
-		move2(aX2);
-		aX3=oBodd.getElementsByClassName('x3');
-		move2(aX3);
-		aX4=oBodd.getElementsByClassName('x4');
-		move2(aX4);
-		
-		create();
+		moveBottom();
 	} else if (event.keyCode == 65) {
-		aY1=oBodd.getElementsByClassName('y1');
-		move1(aY1);
-		aY2=oBodd.getElementsByClassName('y2');
-		move1(aY2);
-		aY3=oBodd.getElementsByClassName('y3');
-		move1(aY3);
-		aY4=oBodd.getElementsByClassName('y4');
-		move1(aY4);
-		
-		create();
+		moveLeft();
 	} else if (event.keyCode == 68) {
-		aY1=oBodd.getElementsByClassName('y1');
-		move2(aY1);
-		aY2=oBodd.getElementsByClassName('y2');
-		move2(aY2);
-		aY3=oBodd.getElementsByClassName('y3');
-		move2(aY3);
-		aY4=oBodd.getElementsByClassName('y4');
-		move2(aY4);
-		
-		create();
+		moveRight();
 	}
 }
 
@@ -113,6 +97,56 @@ var move2=function (obj) {
 		}
 	}
 	arr.splice(0,arr.length);
+}
+
+//封装的上下左右移动
+var moveTop=function () {
+	aX1=oBodd.getElementsByClassName('x1');
+	move1(aX1);
+	aX2=oBodd.getElementsByClassName('x2');
+	move1(aX2);
+	aX3=oBodd.getElementsByClassName('x3');
+	move1(aX3);
+	aX4=oBodd.getElementsByClassName('x4');
+	move1(aX4);
+	
+	create();
+}
+var moveBottom=function () {
+	aX1=oBodd.getElementsByClassName('x1');
+	move2(aX1);
+	aX2=oBodd.getElementsByClassName('x2');
+	move2(aX2);
+	aX3=oBodd.getElementsByClassName('x3');
+	move2(aX3);
+	aX4=oBodd.getElementsByClassName('x4');
+	move2(aX4);
+	
+	create();
+}
+var moveLeft=function () {
+	aY1=oBodd.getElementsByClassName('y1');
+	move1(aY1);
+	aY2=oBodd.getElementsByClassName('y2');
+	move1(aY2);
+	aY3=oBodd.getElementsByClassName('y3');
+	move1(aY3);
+	aY4=oBodd.getElementsByClassName('y4');
+	move1(aY4);
+	
+	create();
+}
+var moveRight=function () {
+	aY1=oBodd.getElementsByClassName('y1');
+	move2(aY1);
+	aY2=oBodd.getElementsByClassName('y2');
+	move2(aY2);
+	aY3=oBodd.getElementsByClassName('y3');
+	move2(aY3);
+	aY4=oBodd.getElementsByClassName('y4');
+	move2(aY4);
+	
+	create();
 }
 
 //用于计算移动时相等的数值的加和
@@ -171,9 +205,12 @@ var create=function () {
 			break;
 		}
 	}
+	
+	font();
 }
 
 //用于设置数字样式和得分
+
 var font=function () {
 	for (var i=0; i<aSmall.length; i++) {
 		if (parseInt(aSmall[i].innerHTML)>1000) {
@@ -196,13 +233,7 @@ var font=function () {
 			arrNum.push(parseInt(aSmall[i].innerHTML));
 		}
 	}
-	
-	for (var i=0; i<arrNum.length-1; i++) {
-		if ((arrNum[i]-arrNum[i+1])>0) {
-			oScore.innerHTML='得分：'+arrNum[i];
-		} else {
-			oScore.innerHTML='得分：'+arrNum[i+1];
-		}
-	}
+	arrNum.sort(function (i, j) {return i-j;});
+	oScore.innerHTML='得分：'+arrNum[arrNum.length-1];
 	arrNum.splice(0,arrNum.length);
 }
