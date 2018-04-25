@@ -14,6 +14,15 @@
 	font-size: 45px;
 	color: green;
 }
+#btn {
+	width: 100px;
+	height: 40px;
+	background: #cfe6ff;
+	color: #0ea8e3;
+	font-size: 20px;
+	text-align: center;
+	line-height: 40px;
+}
 p {
 	font-size: 30px;
 	text-align: center;
